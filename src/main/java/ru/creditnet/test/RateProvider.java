@@ -30,9 +30,35 @@ public class RateProvider {
 
     public RateResponse provideByCode(String code) {
 
-        logger.debug("Finding by code {}", code);
+        logger.info("Finding rate by code : {}", code);
         Date dt = new Date();
         ValCurs valCurs = currencyProvider.provide(dt);
+
+        return this.constructRateByCode(valCurs, code, dt);
+    }
+
+    public RateResponse provideByCodeAndDate(String code, String date) {
+
+        logger.info("Finding rate by code and date : {} : {}", code, date);
+        Date dt = null;
+        synchronized (this) {
+            try {
+                dt = externalDate.parse(date);
+            } catch (ParseException ex) {
+                String errorMessage = String.format("Can't parse date : %s", date);
+                logger.error(errorMessage);
+                RateResponse err = new RateResponse(errorMessage);
+                err.setHttpStatus(HttpStatus.NOT_FOUND);
+                return err;
+            }
+        }
+
+        ValCurs valCurs = currencyProvider.provide(dt);
+
+        return this.constructRateByCode(valCurs, code, dt);
+    }
+
+    private RateResponse constructRateByCode(ValCurs valCurs, String code, Date date) {
 
         if (valCurs == null) {
             logger.error("Returned null valCurs");
@@ -42,38 +68,6 @@ public class RateProvider {
         }
 
         logger.debug(valCurs.getValutes().toString());
-        return this.constructRateByCode(valCurs, code, dt);
-    }
-
-    public RateResponse provideByCodeAndDate(String code, String date) {
-
-        logger.debug("Finding by code and date {} {}", code, date);
-        Date dt = null;
-        synchronized (this) {
-            try {
-                dt = externalDate.parse(date);
-            } catch (ParseException ex) {
-                String msg = "Can't parse date pathVariable";
-                logger.error(msg + " : {}", date);
-                RateResponse err = new RateResponse(msg);
-                err.setHttpStatus(HttpStatus.NOT_FOUND);
-                return err;
-            }
-        }
-
-        ValCurs valCurs = currencyProvider.provide(dt);
-
-        if (valCurs == null) {
-            logger.error("Returned null valCurs");
-            RateResponse err = new RateResponse();
-            err.setHttpStatus(HttpStatus.SERVICE_UNAVAILABLE);
-            return err;
-        }
-
-        return this.constructRateByCode(valCurs, code, dt);
-    }
-
-    private RateResponse constructRateByCode(ValCurs valCurs, String code, Date date) {
 
         for (Valute valute : valCurs.getValutes()) {
 

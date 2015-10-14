@@ -103,7 +103,7 @@ public class IntegrationTest {
         MockHttpServletResponse response = get(path);
         RateResponse rr = this.parseResponse(response);
 
-        Assert.assertEquals("Can't parse date pathVariable", rr.getError());
+        Assert.assertEquals("Can't parse date : XXX", rr.getError());
         Assert.assertEquals(404, response.getStatus());
     }
 
