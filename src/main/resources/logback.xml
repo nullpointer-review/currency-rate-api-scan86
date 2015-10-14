@@ -12,7 +12,7 @@
         <appender-ref ref="STDOUT"/>
     </logger>
 
-    <logger name="ru.creditnet" level="debug" additivity="false">
+    <logger name="ru.creditnet" level="info" additivity="false">
         <appender-ref ref="STDOUT"/>
     </logger>
 
