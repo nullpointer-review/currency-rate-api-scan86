@@ -8,7 +8,7 @@ import java.util.TimeZone;
  */
 public class SimpleDateFormatFactory {
 
-    private TimeZone UTC = TimeZone.getTimeZone("UTC");
+    private final TimeZone UTC = TimeZone.getTimeZone("UTC");
 
     public SimpleDateFormat getInternalDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");

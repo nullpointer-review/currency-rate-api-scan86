@@ -1,7 +1,8 @@
 package ru.creditnet.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.*;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -76,15 +77,7 @@ public class IntegrationTest {
 
         logger.info(response.getContentAsString());
 
-        //TODO {"code":"USD","rate":30.9436,"date":"2015-10-13"}
-
-        ObjectMapper om = new ObjectMapper();
-        RateResponse rr = null;
-        try {
-            rr = om.readValue(response.getContentAsString(), RateResponse.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        RateResponse rr = this.parseResponse(response);
 
         Assert.assertEquals("USD", rr.getCode());
         Assert.assertEquals("30.9436", rr.getRate().toString());
@@ -96,16 +89,7 @@ public class IntegrationTest {
         String path = "/api/rate/XXX";
 
         MockHttpServletResponse response = get(path);
-
-        logger.info("{} {}", response.getContentAsString(), response.getStatus());
-
-        ObjectMapper om = new ObjectMapper();
-        RateResponse rr = null;
-        try {
-            rr = om.readValue(response.getContentAsString(), RateResponse.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        RateResponse rr = this.parseResponse(response);
 
         Assert.assertEquals("Code XXX not found in cbr reply", rr.getError());
         Assert.assertEquals(200, response.getStatus());
@@ -117,11 +101,10 @@ public class IntegrationTest {
         String path = "/api/rate/USD/XXX";
 
         MockHttpServletResponse response = get(path);
+        RateResponse rr = this.parseResponse(response);
 
-        logger.info("{} {}", response.getContentAsString(), response.getStatus());
-
-        //TODO
-
+        Assert.assertEquals("Can't parse date pathVariable", rr.getError());
+        Assert.assertEquals(404, response.getStatus());
     }
 
     @Test
@@ -129,10 +112,11 @@ public class IntegrationTest {
         String path = "/api/rate/XXX/2015-01-01";
 
         MockHttpServletResponse response = get(path);
+        RateResponse rr = this.parseResponse(response);
 
-        logger.info("{} {}", response.getContentAsString(), response.getStatus());
 
-        //TODO
+        Assert.assertEquals("Code XXX not found in cbr reply", rr.getError());
+        Assert.assertEquals(200, response.getStatus());
 
     }
 
@@ -150,7 +134,16 @@ public class IntegrationTest {
         return response;
     }
 
-
+    private RateResponse parseResponse(MockHttpServletResponse response) {
+        ObjectMapper om = new ObjectMapper();
+        RateResponse rr = null;
+        try {
+            rr = om.readValue(response.getContentAsString(), RateResponse.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return rr;
+    }
 
 
 }
