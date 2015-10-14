@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import ru.creditnet.test.sourses.Source;
-import ru.creditnet.test.xml.ValCurs;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,10 +22,9 @@ import java.util.Date;
 @ContextConfiguration(locations = {"/beans-test.xml"})
 public class Test2 {
 
+    private final static Logger logger = LoggerFactory.getLogger(Test2.class);
     @Autowired
     private ApplicationContext ctx;
-
-    private final static Logger logger = LoggerFactory.getLogger(Test2.class);
 
     @org.junit.Test
     public void testCbrSource() {

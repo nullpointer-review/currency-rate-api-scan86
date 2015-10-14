@@ -1,6 +1,6 @@
 package ru.creditnet.test;
 
-import org.junit.*;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -10,11 +10,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.RestOperations;
 import ru.creditnet.test.xml.ValCurs;
-
-import javax.annotation.Resource;
 
 /**
  * Created by scan on 13.10.15.
@@ -24,16 +21,15 @@ import javax.annotation.Resource;
 @ContextConfiguration(locations = {"/beans-test.xml"})
 public class TestRespOperation {
 
+    private final static Logger logger = LoggerFactory.getLogger(TestRespOperation.class);
     @Autowired
     private ApplicationContext ctx;
-
-    private final static Logger logger = LoggerFactory.getLogger(TestRespOperation.class);
 
     @org.junit.Test
     public void testStub() {
         String url = "http://null";
 
-        RestOperations restOperations  = (RestOperations) ctx.getBean("cbrStub");
+        RestOperations restOperations = (RestOperations) ctx.getBean("cbrStub");
 
         ResponseEntity<ValCurs> responseEntity = restOperations.getForEntity(url, ValCurs.class);
 
@@ -54,7 +50,7 @@ public class TestRespOperation {
 
         String url = "http://www.cbr.ru/scripts/XML_daily.asp?date_req=02/03/2002";
 
-        RestOperations restOperations  = (RestOperations) ctx.getBean("cbr");
+        RestOperations restOperations = (RestOperations) ctx.getBean("cbr");
 
         ResponseEntity<ValCurs> responseEntity = restOperations.getForEntity(url, ValCurs.class);
 
@@ -69,7 +65,6 @@ public class TestRespOperation {
         Assert.assertEquals(17, valCurs.getValutes().size(), 0);
 
     }
-
 
 
 }

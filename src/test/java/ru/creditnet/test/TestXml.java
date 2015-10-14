@@ -1,10 +1,10 @@
 package ru.creditnet.test;
 
-import ru.creditnet.test.xml.ValCurs;
-import org.junit.*;
+import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.creditnet.test.xml.ValCurs;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
