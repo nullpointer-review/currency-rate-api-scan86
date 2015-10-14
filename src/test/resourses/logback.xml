@@ -8,7 +8,11 @@
         </encoder>
     </appender>
 
-    <logger name="org.springframework" level="info" additivity="false" >
+    <logger name="ch.qos.logback" level="OFF" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="org.springframework" level="OFF" additivity="false" >
         <appender-ref ref="STDOUT" />
     </logger>
 
