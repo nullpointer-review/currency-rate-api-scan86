@@ -1,18 +1,17 @@
 package ru.creditnet.test;
 
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import ru.creditnet.test.response.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import ru.creditnet.test.response.RateResponse;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -54,9 +53,9 @@ public class CurrencyEndpoint {
     @RequestMapping(path = "/test", method = RequestMethod.GET)
     public ResponseEntity<RateResponse> getByCodeAndDate() {
 
-	    logger.info("Procesing test request...");
+        logger.info("Procesing test request...");
         RateResponse rateResponse = new RateResponse("test");
-	    rateResponse.setHttpStatus(HttpStatus.OK);
+        rateResponse.setHttpStatus(HttpStatus.OK);
         return new ResponseEntity<RateResponse>(rateResponse, rateResponse.getHttpStatus());
     }
 

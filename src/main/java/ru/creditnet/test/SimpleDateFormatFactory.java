@@ -1,7 +1,5 @@
 package ru.creditnet.test;
 
-import org.springframework.stereotype.Component;
-
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 

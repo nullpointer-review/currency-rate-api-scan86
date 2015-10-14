@@ -44,7 +44,7 @@ public class RateResponse {
     }
 
     public boolean hasErrors() {
-        return ( error == null ) ? true : false;
+        return (error == null) ? true : false;
     }
 
 

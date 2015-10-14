@@ -3,9 +3,6 @@ package ru.creditnet.test.sourses;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URL;
-import java.util.Map;
-
 /**
  * Created by scan on 09.10.15.
  */

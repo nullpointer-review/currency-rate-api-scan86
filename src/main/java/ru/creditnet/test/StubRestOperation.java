@@ -1,6 +1,5 @@
 package ru.creditnet.test;
 
-import ru.creditnet.test.xml.ValCurs;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -8,6 +7,7 @@ import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestOperations;
+import ru.creditnet.test.xml.ValCurs;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -56,7 +56,7 @@ public class StubRestOperation implements RestOperations {
     }
 
     public <T> ResponseEntity<T> getForEntity(String url, Class<T> responseType, Map<String, ?> uriVariables) throws RestClientException {
-       return null;
+        return null;
     }
 
     public <T> ResponseEntity<T> getForEntity(URI url, Class<T> responseType) throws RestClientException {

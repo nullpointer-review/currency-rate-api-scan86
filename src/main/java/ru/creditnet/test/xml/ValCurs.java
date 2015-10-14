@@ -38,7 +38,7 @@ public class ValCurs {
         StringBuilder sb = new StringBuilder();
         sb.append("[ ");
         sb.append(String.format("%s %s %d ", name, date, len));
-        for ( Valute v : getValutes() ) {
+        for (Valute v : getValutes()) {
             sb.append(v.toString());
         }
         sb.append(" ]");

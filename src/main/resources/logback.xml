@@ -8,19 +8,18 @@
         </encoder>
     </appender>
 
-    <logger name="org.springframework" level="info" additivity="false" >
-        <appender-ref ref="STDOUT" />
+    <logger name="org.springframework" level="info" additivity="false">
+        <appender-ref ref="STDOUT"/>
     </logger>
 
     <logger name="ru.creditnet" level="debug" additivity="false">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="STDOUT"/>
     </logger>
 
 
     <root level="info">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="STDOUT"/>
     </root>
-
 
 
 </configuration>

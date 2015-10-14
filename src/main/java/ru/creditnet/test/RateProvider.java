@@ -5,18 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import ru.creditnet.test.CurrencyEndpoint;
-import ru.creditnet.test.CurrencyProvider;
 import ru.creditnet.test.response.RateResponse;
 import ru.creditnet.test.xml.ValCurs;
-import ru.creditnet.test.xml.ValueAdapter;
 import ru.creditnet.test.xml.Valute;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * Created by user on 08.10.2015.
