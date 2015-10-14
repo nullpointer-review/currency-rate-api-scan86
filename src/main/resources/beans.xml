@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	    http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <mvc:annotation-driven/>
+    <context:component-scan base-package="ru.creditnet.test"/>
+
+    <!--<bean class="ru.creditnet.test.CurrencyEndpoint"/>-->
+    <!--<bean class="ru.creditnet.test.RateProvider"/>-->
+    <!--<bean class="ru.creditnet.test.CurrencyProvider">-->
+        <!--<property name="restOperations" ref="cbr"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="cbrStub" class="ru.creditnet.test.StubRestOperation"/>-->
+    <bean id="cbr" class="org.springframework.web.client.RestTemplate">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter"/>
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="sdfFactory" class="ru.creditnet.test.SimpleDateFormatFactory"/>
+
+    <bean id="internalDate" factory-bean="sdfFactory" factory-method="getInternalDate"/>
+    <bean id="externalDate" factory-bean="sdfFactory" factory-method="getExternalDate"/>
+
+    <bean id="cbrCurrencySource" class="ru.creditnet.test.sourses.CbrCurrencySource">
+        <property name="uriBuilder" ref="cbrUrlBuilder"/>
+    </bean>
+
+    <bean id="cbrUrlBuilder" class="org.springframework.web.util.UriComponentsBuilder" factory-method="fromHttpUrl">
+        <constructor-arg value="http://www.cbr.ru/scripts/XML_daily.asp"/>
+    </bean>
+
+
+</beans>
